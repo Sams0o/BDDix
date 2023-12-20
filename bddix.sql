@@ -3,7 +3,7 @@
 select * from potion p;
 
 --2. Liste des noms des trophées rapportant 3 points. (2 lignes)
-select code_cat 
+select nom_categ
 from categorie c 
 where nb_points = 3;
 
@@ -15,7 +15,7 @@ where nb_huttes > 35;
 --4. Liste des trophées (numéros) pris en mai / juin 52. (4 lignes)
 select num_trophee 
 from trophee t 
-where date_prise between '01/05/2052' and '30/06/2052';
+where date_prise between '2052/05/01' and '2052/05/30';
 
 --5. Noms des habitants commençant par 'a' et contenant la lettre 'r'. (3 lignes)
 select nom 
@@ -118,7 +118,7 @@ where h.nom = 'Goudurix';
 
 --20. Date de première prise de trophée. (03/04/52)
 select min(date_prise)
-from trophee t 
+from trophee t;
 
 --21. Nombre de louches de Potion magique n°2 (c'est le libellé de la potion) absorbées. (19)
 select sum(quantite)
@@ -128,7 +128,7 @@ where p.lib_potion = 'Potion magique n°2';
 
 --22. Superficie la plus grande. (895)
 select max(superficie) 
-from resserre r 
+from resserre r;
 
 --***
 
@@ -152,10 +152,10 @@ join province p on p.num_province = v.num_province
 group by p.nom_province;
 
 --26. Nombre de potions différentes absorbées par chaque habitant (nom et nombre). (9lignes)
-select h.nom, count(p.num_potion)
+select h.nom, count(distinct p.num_potion)
 from potion p 
-join absorber a on a.num_potion = p.num_potion 
-join habitant h on h.num_hab = a.num_hab  
+join absorber a on h.num_hab = a.num_hab 
+join potion p on a.num_potion = p.num_potion
 group by h.nom; 
 
 --27. Nom des habitants ayant bu plus de 2 louches de potion zen. (1 ligne)
